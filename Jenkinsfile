@@ -10,5 +10,13 @@ pipeline {
         '''
       }
     }
+    stage('Upload to AWS S3') {
+      steps {
+        withAWS(region:'us-west-1',credentials:'Static HTML publisher in AWS') {
+		      sh 'echo "Hello World with AWS"'
+          s3Upload(pathStyleAccessEnabled: true, payloadSigningEnabled: true, file:'index.html', bucket:'jenkinstestmuhmmadomar')
+              }
+            }
+    }
   }
 }
